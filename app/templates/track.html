@@ -11,7 +11,7 @@
 {% endif %}
 
 	<div style="font-size: 1.5em;text-align: center">
-		<h3>Index Flask-Track</h3>
+		<h3>Track IP</h3>
 		<hr>
 	</div>
 	<div style="font-size: 1em;text-align: center">
@@ -44,7 +44,7 @@
 			{%- for page in list_records.iter_pages() %}
 				{% if page %}
 					{% if page != list_records.page %}
-						<li> <a href="{{ url_for( 'index', page = page) }}">{{ page }}</a> </li>
+						<li> <a href="{{ url_for( 'track_user_ip', user_ip = user_ip, page = page) }}">{{ page }}</a> </li>
 					{% else %}
 						<li class="active"><a href="#"><strong>{{ page }}</strong></a> </li>
 					{% endif %}

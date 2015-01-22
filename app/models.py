@@ -23,5 +23,9 @@ class Tracking(db.Model):
 	def list_all_users(page, LISTINGS_PER_PAGE=10):
 		return Tracking.query.order_by(desc(Tracking.at_time)).paginate(page, LISTINGS_PER_PAGE, False)
 
+	@staticmethod
+	def track_user_ip(user_ip, page, LISTINGS_PER_PAGE):
+		return Tracking.query.filter(Tracking.user_ip == user_ip).order_by(desc(Tracking.at_time)).paginate(page, LISTINGS_PER_PAGE,False)
+
 	def __repr__(self):
 		return '<Tracking %r>' % (self.id)

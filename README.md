@@ -1,4 +1,5 @@
-demo flask app from [Beginning Web Development with Python by Andrei Dan](http://www.amazon.com/Beginning-Web-Development-Python-production-ebook/dp/B00N8YB0CW)
+## demo flask app from [Beginning Web Development with Python by Andrei Dan](http://www.amazon.com/Beginning-Web-Development-Python-production-ebook/dp/B00N8YB0CW)
+see [Andrei Dan on Github](https://github.com/AndreiD/FlaskBook/) for exact code and license info
 
 If you have docker and the code setup at ./flaskapp you can
 

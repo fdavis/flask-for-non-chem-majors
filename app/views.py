@@ -19,3 +19,10 @@ def index(page=1):
 	# for record in list_records:
 	# 	logging.info(record.user_ip + " " + record.user_agent)
 	return render_template("index.html", list_records=list_records, page=page, num_paginated=app.config['LISTINGS_PER_PAGE'])
+
+@app.route('/track/<user_ip>')
+@app.route('/track/<user_ip>/<int:page>')
+def track_user_ip(user_ip="", page = 1):
+	Tracking(request.remote_addr, request.headers.get('User-Agent')).save()
+	list_records = Tracking.track_user_ip(user_ip, page, app.config['LISTINGS_PER_PAGE'])
+	return render_template("track.html", user_ip=user_ip, list_records=list_records, page=page, num_paginated=app.config['LISTINGS_PER_PAGE'])
