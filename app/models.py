@@ -10,14 +10,20 @@ class Tracking(db.Model):
 	user_agent = db.Column(db.String(100))
 	at_time = db.Column(db.DateTime,default=datetime.datetime.now)
 
-	def __init__(self, user_ip, user_agent):
+	def __init__(self, user_ip = "", user_agent = ""):
 		self.user_ip = user_ip
 		self.user_agent = user_agent
 
 	def save(self):
 		# new_user = Tracking(user_ip, user_agent=user_agent)
+		if self.user_ip == "":
+			raise "herpus derpus user ip is blank"
 		db.session.add(self)
 		db.session.commit()
+
+	def set_data(self, user_ip, user_agent = ""):
+		self.user_ip = user_ip
+		self.user_agent = user_agent
 
 	@staticmethod
 	def list_all_users(page, LISTINGS_PER_PAGE=10):

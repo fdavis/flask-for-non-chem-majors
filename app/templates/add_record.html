@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Add Record{% endblock title %}
+{% block content %}
+
+    <div style="font-size: 1.5em;text-align: center">
+        <h3>Add Record</h3>
+        <hr>
+    </div>
+    <div style="font-size: 1em;text-align: center">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        <form action="" method=post>
+            <dl>
+              <dt>user_ip:
+              <dd><input type=text name=user_ip value="{{
+                  request.form.user_ip }}">
+              <dt>user_agent:
+              <dd><input type=text name=user_agent value="{{ request.form.user_agent }}">
+            </dl>
+            <p><input type=submit value="Journal Me">
+          </form>
+        <hr>
+
+    </div>
+{% endblock content %}

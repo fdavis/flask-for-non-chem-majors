@@ -1,9 +1,11 @@
-from flask import render_template, request
+from flask import render_template, request, flash
 from models import *
-from flask.ext.admin import Admin, BaseView, expose
-from flask.ext.admin.contrib.sqla import ModelView
+from forms import *
 from app import *
 import logging
+
+# from flask.ext.admin import Admin, BaseView, expose
+# from flask.ext.admin.contrib.sqla import ModelView
 
 @app.before_first_request
 def before_first_request():
@@ -26,3 +28,16 @@ def track_user_ip(user_ip="", page = 1):
 	Tracking(request.remote_addr, request.headers.get('User-Agent')).save()
 	list_records = Tracking.track_user_ip(user_ip, page, app.config['LISTINGS_PER_PAGE'])
 	return render_template("track.html", user_ip=user_ip, list_records=list_records, page=page, num_paginated=app.config['LISTINGS_PER_PAGE'])
+
+@app.route('/add_record', methods=['GET', 'POST'])
+def add_record():
+	form = TrackingInfoForm(request.form)
+	if request.method == 'POST':
+		if form.validate():
+			new_tracking = Tracking()
+			user_ip = form.user_ip.data
+			user_agent = form.user_agent.data
+			logging.info("adding " + user_ip + " " + user_agent)
+			new_tracking.set_data(user_ip, user_agent)
+			flash("added successfully", category = "succses")
+	return render_template("add_record.html", form = form)
