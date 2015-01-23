@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% from "_formhelpers.html" import render_field %}
+
 {% block title %}Track IP{% endblock title %}
 {% block content %}
 
@@ -53,6 +55,13 @@
 				{% endif %}
 			{%- endfor %}
 		</ul>
+
+		 <form method=post action="">
+          <dl>
+            {{ render_field(form.user_ip) }}
+          </dl>
+          <p><input type=submit value=Track></p>
+        </form>
 
 	</div>
 {% endblock content %}

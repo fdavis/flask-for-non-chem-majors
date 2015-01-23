@@ -1,4 +1,4 @@
-from flask import render_template, request, flash
+from flask import render_template, request, flash, redirect, url_for
 from models import *
 from forms import *
 from app import *
@@ -22,12 +22,19 @@ def index(page=1):
 	# 	logging.info(record.user_ip + " " + record.user_agent)
 	return render_template("index.html", list_records=list_records, page=page, num_paginated=app.config['LISTINGS_PER_PAGE'])
 
-@app.route('/track/<user_ip>')
-@app.route('/track/<user_ip>/<int:page>')
+@app.route('/track', methods=['GET', 'POST'])
+@app.route('/track/<user_ip>', methods=['GET', 'POST'])
+@app.route('/track/<user_ip>/<int:page>', methods=['GET', 'POST'])
 def track_user_ip(user_ip="", page = 1):
 	Tracking(request.remote_addr, request.headers.get('User-Agent')).save()
+
+	form = TrackingForm(request.form)
+	if request.method == 'POST':
+		if form.validate():
+			user_ip = form.user_ip.data
+
 	list_records = Tracking.track_user_ip(user_ip, page, app.config['LISTINGS_PER_PAGE'])
-	return render_template("track.html", user_ip=user_ip, list_records=list_records, page=page, num_paginated=app.config['LISTINGS_PER_PAGE'])
+	return render_template("track.html", form=form, user_ip=user_ip, list_records=list_records, page=page, num_paginated=app.config['LISTINGS_PER_PAGE'])
 
 @app.route('/add_record', methods=['GET', 'POST'])
 def add_record():

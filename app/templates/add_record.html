@@ -1,6 +1,9 @@
 {% extends "base.html" %}
+{% from "_formhelpers.html" import render_field %}
+
 {% block title %}Add Record{% endblock title %}
 {% block content %}
+
 
     <div style="font-size: 1.5em;text-align: center">
         <h3>Add Record</h3>
@@ -16,6 +19,14 @@
             </ul>
           {% endif %}
         {% endwith %}
+        <form method=post action="">
+          <dl>
+            {{ render_field(form.user_ip) }}
+            {{ render_field(form.user_agent) }}
+          </dl>
+          <p><input type=submit value=Register></p>
+        </form>
+    <!-- 
         <form action="" method=post>
             <dl>
               <dt>user_ip:
@@ -26,7 +37,7 @@
             </dl>
             <p><input type=submit value="Journal Me">
           </form>
-        <hr>
+        <hr> -->
 
     </div>
 {% endblock content %}
